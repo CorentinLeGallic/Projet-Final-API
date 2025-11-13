@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
-import { AuthController } from './auth/auth.controller';
-import { AuthService } from './auth/auth.service';
 import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
 import { ConfigModule } from '@nestjs/config';
 import { validate } from './env.validation';
+import { GamesModule } from './games/games.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from './auth/auth.guard';
 
 @Module({
   imports: [
@@ -15,8 +15,13 @@ import { validate } from './env.validation';
       validate,
       isGlobal: true,
     }),
+    GamesModule,
   ],
-  controllers: [AuthController],
-  providers: [AuthService, UsersService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

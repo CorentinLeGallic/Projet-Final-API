@@ -4,6 +4,9 @@ import { IsString, validateSync } from 'class-validator';
 class EnvironmentVariables {
   @IsString()
   JWT_KEY: string;
+
+  @IsString()
+  NODE_ENV: string;
 }
 
 export function validate(config: Record<string, unknown>) {
