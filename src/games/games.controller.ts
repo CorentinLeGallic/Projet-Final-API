@@ -74,6 +74,7 @@ export class GamesController {
   }
 
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   @UsePipes(new ValidationPipe({ always: true }))
   deleteTask(@Param() params: DeleteGameDto) {
     const { id } = params;
